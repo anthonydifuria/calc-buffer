@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>calcolatrice buffer audio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+
+    <header class="menubar">
+      <div class="inner">
+        <span class="brand">adf<span class="sub"> :: calcolatrice buffer audio</span></span>
+        <span class="spacer"></span>
+        <select class="palette-select" id="palette-select" aria-label="palette colori">
+          <option value="default">palette: default</option>
+          <option value="dark-hi">alto contrasto scuro</option>
+          <option value="light">alto contrasto chiaro</option>
+          <option value="sepia">seppia</option>
+          <option value="crt">crt verde</option>
+          <option value="by">blu/giallo</option>
+        </select>
+        <div class="unit-toggle" role="group" aria-label="base unità">
+          <button type="button" id="unit-1024" aria-pressed="true">binario (1024)</button>
+          <button type="button" id="unit-1000" aria-pressed="false">decimale (1000)</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <aside class="pane" data-title="indice">
+        <ul class="tui-list" id="format-index"></ul>
+      </aside>
+
+      <div class="content">
+        <section class="pane" data-title="parametri comuni">
+          <form id="common-params" onsubmit="return false">
+            <div class="field-grid">
+              <div class="field">
+                <label for="duration">durata</label>
+                <input type="number" id="duration" min="0" step="any" value="10">
+              </div>
+              <div class="field">
+                <label>unità durata</label>
+                <div class="mode-toggle" data-mode-group="duration-unit">
+                  <button type="button" data-mode="s" aria-pressed="true">sec</button>
+                  <button type="button" data-mode="ms" aria-pressed="false">ms</button>
+                </div>
+              </div>
+              <div class="field">
+                <label for="samplerate">sample rate (Hz, intero)</label>
+                <input type="number" id="samplerate" min="1" step="1" value="44100">
+                <div class="hint">qualsiasi valore — es. 44100, 48000, 96000, 192000…</div>
+              </div>
+              <div class="field">
+                <label for="bitdepth">bit depth (intero)</label>
+                <input type="number" id="bitdepth" min="1" step="1" value="16">
+              </div>
+              <div class="field">
+                <label><input type="checkbox" id="bitdepth-float"> virgola mobile (IEEE float)</label>
+              </div>
+              <div class="field">
+                <label for="channels">canali</label>
+                <input type="number" id="channels" min="1" max="128" step="1" value="2">
+              </div>
+            </div>
+            <div class="hint">i campi di ogni formato sotto (bitrate, modalità, rapporto di compressione) si aggiornano insieme a questi.</div>
+          </form>
+        </section>
+
+        <div id="formats-container"></div>
+
+        <section class="pane" data-title="legenda">
+          <p class="fmt-desc">
+            <span class="badge exact">esatto</span> — calcolo deterministico dalla struttura del formato.
+            <span class="badge est">stima</span> — dimensione che dipende da encoder/contenuto audio: valore indicativo, non garantito.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="status" role="status" aria-live="polite">
+      <span>[<span class="cursor">▮</span>] buffer calc</span>
+      <span>13 formati · 1988–2012</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
